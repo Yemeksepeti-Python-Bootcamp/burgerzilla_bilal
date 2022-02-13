@@ -1,0 +1,26 @@
+version: '3.9'
+
+services:
+  web:
+    container_name: flaskrestproje
+    image: flaskrestproje
+    ports:
+      - "5000:5000"
+    environment:
+      - DATABASE_URL=postgres://dbuser:123456@db:5432/restjamiryo
+    depends_on:
+      - db
+  db:
+    container_name: db
+    image: postgres:14
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=dbuser
+      - POSTGRES_PASSWORD=123456
+      - POSTGRES_DB=restjamiryo
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+volumes:
+  pgdata: {}
